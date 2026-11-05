@@ -1,0 +1,7 @@
+pandas
+boto3
+fastapi
+uvicorn
+lpenpyxl
+python-multipart
+python-dotenv

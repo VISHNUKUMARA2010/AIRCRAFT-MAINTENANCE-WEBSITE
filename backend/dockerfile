@@ -1,0 +1,22 @@
+# Use a official lightweight Python image
+from python:3.12-slim
+
+# Install uv using pip
+Run pip install uv
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file first to leverage Docker layer caching
+COPY requirements.txt .
+Run uv pip install --system --no-cache -r requirements.txt
+
+
+# Copy entire backend source code to the working directory 
+COPY . .
+
+# Expose port 8000 so the app cen be accessed from outside of the container
+EXPOSE 8000
+
+# We bind to 0.0.0.0 to allow external connections
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
